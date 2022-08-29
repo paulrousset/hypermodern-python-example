@@ -1,8 +1,13 @@
 [tool.poetry]
 name = "hypermodern-python-example"
 version = "0.1.0"
-description = ""
+description = "The hypermodern Python example"
 authors = ["Paul <paulrousset@hotmail.fr>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/username/hypermodern-python-example"
+repository = "https://github.com/username/hypermodern-python-example"
+keywords = ["hypermodern"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
