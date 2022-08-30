@@ -46,3 +46,13 @@ def test_main_prints_message_on_request_error(runner, mock_requests_get):
     result = runner.invoke(console.main)
     assert "Error" in result.output
 
+
+# mocking the random_page function
+def mock_wikipedia_random_page(mocker):
+    return mocker.patch("hypermodern_python.wikipedia.random_page")
+
+
+# testing that the selected language is passed on to the function
+def test_main_uses_specified_language(runner, mock_wikipedia_random_page):
+    runner.invoke(console.main, ["--language=pl"])
+    mock_wikipedia_random_page.assert_called_with(language="pl")
