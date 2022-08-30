@@ -1,4 +1,4 @@
-from hypermodern_python import wikipedia
+from hypermodern_python_example import wikipedia
 
 
 # testing that the language option is working

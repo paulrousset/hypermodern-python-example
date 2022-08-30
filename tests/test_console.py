@@ -14,6 +14,12 @@ def test_main_succeeds(runner, mock_requests_get):
     assert result.exit_code == 0
 
 
+@pytest.mark.e2e
+def test_main_succeeds_in_production_env(runner):
+    result = runner.invoke(console.main)
+    assert result.exit_code == 0
+
+
 # testing that the title returned by the API is printed to the console
 def test_main_prints_title(runner, mock_requests_get):
     result = runner.invoke(console.main)
