@@ -1,6 +1,6 @@
 import click.testing
 import pytest
-from hypermodern_python import console
+from hypermodern_python_example import console
 
 
 @pytest.fixture
