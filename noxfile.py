@@ -5,8 +5,11 @@ from typing import Any
 import nox
 from nox.sessions import Session
 
+package = "hypermodern_python_example"
 
 nox.options.sessions = "lint", "safety", "tests"
+
+locations = "src", "tests", "noxfile.py", "docs/conf.py"
 
 
 @nox.session(python=["3.10", "3.9"])
@@ -20,9 +23,6 @@ def tests(session: Session) -> None:
                              "pytest-cov",
                              "pytest-mock")
     session.run("pytest", *args)
-
-
-locations = "src", "tests", "noxfile.py"
 
 
 @nox.session(python=["3.10", "3.9"])
@@ -89,3 +89,19 @@ def install_with_constraints(session: Session, *args: str, **kwargs: Any) -> Non
             external=True,
         )
         session.install(f"--constraint={requirements.name}", *args, **kwargs)
+
+
+@nox.session(python=["3.10", "3.9"])
+def xdoctest(session: Session) -> None:
+    """Run examples with xdoctest."""
+    args = session.posargs or ["all"]
+    session.run("poetry", "install", "--no-dev", external=True)
+    install_with_constraints(session, "xdoctest")
+    session.run("python", "-m", "xdoctest", package, *args)
+
+
+@nox.session(python="3.10")
+def docs(session: Session) -> None:
+    """Build the documentation."""
+    install_with_constraints(session, "sphinx")
+    session.run("sphinx-build", "docs", "docs/_build")
