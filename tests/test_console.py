@@ -1,6 +1,6 @@
 import click.testing
-import pytest
 from hypermodern_python_example import console
+import pytest
 import requests
 
 
