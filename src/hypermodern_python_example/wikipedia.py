@@ -2,6 +2,8 @@
 
 import click
 import requests
+from dataclasses import dataclass
+
 
 @dataclass
 class Page:
