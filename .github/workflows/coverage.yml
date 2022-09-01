@@ -12,5 +12,4 @@ jobs:
     - run: pip install nox==2022.8.7
     - run: pip install poetry==1.1.15
     - run: nox --sessions tests-3.10 coverage
-      env:
-        CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
+    - uses: codecov/codecov-action@v3.1.0
