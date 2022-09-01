@@ -15,26 +15,33 @@ class Page:
     title: str
     extract: str
 
+
 API_URL = "https://{language}.wikipedia.org/api/rest_v1/page/random/summary"
 
 
 def random_page(language: str = "en") -> Page:
     """Return a random page.
+
     Performs a GET request to the /page/random/summary endpoint.
+
     Args:
-        language: The Wikipedia language edition. By default, the
-            English Wikipedia is used ("en").
+        language: The Wikipedia language edition. By default, the English
+            Wikipedia is used ("en").
+
     Returns:
         A page resource.
+
     Raises:
         ClickException: The HTTP request failed or the HTTP response
             contained an invalid body.
+
     Example:
-        >>> from hypermodern_python import wikipedia
+        >>> from hypermodern_python_example import wikipedia
         >>> page = wikipedia.random_page(language="en")
         >>> bool(page.title)
         True
-"""
+    """
+
     url = API_URL.format(language=language)
     try:
         with requests.get(url) as response:
