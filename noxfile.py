@@ -16,11 +16,7 @@ def tests(session: Session) -> None:
     """Run the test suite"""
     args = session.posargs or ["--cov", "-m", "not e2e"]
     session.run("poetry", "install", "--no-dev", external=True)
-    session.install("coverage[toml]",
-                    "pytest",
-                    "pytest-cov",
-                    "pytest-mock",
-                    ".")
+    session.install("coverage[toml]", "pytest", "pytest-cov", "pytest-mock", ".")
     session.run("pytest", *args)
 
 
@@ -71,3 +67,11 @@ def docs(session: Session) -> None:
     session.run("poetry", "install", "--no-dev", external=True)
     session.install("sphinx", "sphinx-autodoc-typehints")
     session.run("sphinx-build", "docs", "docs/_build")
+
+
+@session(python="3.10")
+def coverage(session: Session) -> None:
+    """Upload coverage data."""
+    session.install("coverage[toml]", "codecov")
+    session.run("coverage", "xml", "--fail-under=0")
+    session.run("codecov", *session.posargs)

@@ -12,6 +12,7 @@ class Page:
         title: The title of the Wikipedia page.
         extract: A plain text summary.
     """
+
     title: str
     extract: str
 
