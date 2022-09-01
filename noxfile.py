@@ -2,7 +2,7 @@
 
 import nox
 from nox.sessions import Session
-from nox_poetry import session
+import nox_poetry
 
 package = "hypermodern_python_example"
 
@@ -11,7 +11,7 @@ nox.options.sessions = "lint", "safety", "tests"
 locations = "src", "tests", "noxfile.py", "docs/conf.py"
 
 
-@session(python=["3.10", "3.9"])
+@nox_poetry.session(python=["3.10", "3.9"])
 def tests(session: Session) -> None:
     """Run the test suite"""
     args = session.posargs or ["--cov", "-m", "not e2e"]
@@ -20,7 +20,7 @@ def tests(session: Session) -> None:
     session.run("pytest", *args)
 
 
-@session(python=["3.10", "3.9"])
+@nox_poetry.session(python=["3.10", "3.9"])
 def lint(session: Session) -> None:
     """Lint using flake8"""
     args = session.posargs or locations
@@ -37,7 +37,7 @@ def lint(session: Session) -> None:
     session.run("flake8", *args)
 
 
-@session(python=["3.10"])
+@nox_poetry.session(python=["3.10"])
 def black(session: Session) -> None:
     """Run Black code formatter"""
     args = session.posargs or locations
@@ -45,14 +45,14 @@ def black(session: Session) -> None:
     session.run("black", *args)
 
 
-@session(python=["3.10"])
+@nox_poetry.session(python=["3.10"])
 def safety(session: Session) -> None:
     """Scan dependencies for insecure packages"""
     session.install("safety")
     session.run("safety", "check", "--full-report")
 
 
-@session(python=["3.10", "3.9"])
+@nox_poetry.session(python=["3.10", "3.9"])
 def xdoctest(session: Session) -> None:
     """Run examples with xdoctest."""
     args = session.posargs or ["all"]
@@ -61,7 +61,7 @@ def xdoctest(session: Session) -> None:
     session.run("python", "-m", "xdoctest", package, *args)
 
 
-@session(python=["3.10"])
+@nox_poetry.session(python=["3.10"])
 def docs(session: Session) -> None:
     """Build the documentation."""
     session.run("poetry", "install", "--no-dev", external=True)
@@ -69,7 +69,7 @@ def docs(session: Session) -> None:
     session.run("sphinx-build", "docs", "docs/_build")
 
 
-@session(python="3.10")
+@nox_poetry.session(python="3.10")
 def coverage(session: Session) -> None:
     """Upload coverage data."""
     session.install("coverage[toml]", "codecov")
