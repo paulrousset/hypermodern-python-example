@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "hypermodern-python-example"
-version = "1.0.0"
+version = "0.1.0"
 description = "The hypermodern Python example"
 authors = ["Paul <paulrousset@hotmail.fr>"]
 license = "MIT"
