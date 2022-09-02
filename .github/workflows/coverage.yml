@@ -14,3 +14,8 @@ jobs:
     - run: pip install nox-poetry==1.0.1
     - run: nox --sessions tests-3.10 coverage
     - uses: codecov/codecov-action@v3.1.0
+    - run:
+        $ProgressPreference = 'SilentlyContinue'
+        Invoke-WebRequest -Uri https://uploader.codecov.io/latest/windows/codecov.exe
+        -Outfile codecov.exe
+        .\codecov.exe -t ${CODECOV_TOKEN}
