@@ -10,7 +10,7 @@ repository = "https://github.com/username/hypermodern-python-example"
 keywords = ["hypermodern"]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.9"
 requests = "^2.28.1"
 click = "^8.1.3"
 

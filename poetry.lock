@@ -773,7 +773,7 @@ tests-strict = ["cmake (==3.21.2)", "codecov (==2.0.15)", "ninja (==1.10.2)", "p
 
 [metadata]
 lock-version = "1.1"
-python-versions = "^3.10"
+python-versions = "^3.9"
 content-hash = "b7533a5c2d91f0e8ffc089180eb9f3e543ec059e7180e164f470aa183a8d3cf8"
 
 [metadata.files]

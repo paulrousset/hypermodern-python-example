@@ -11,7 +11,7 @@ nox.options.sessions = "lint", "safety", "tests"
 locations = "src", "tests", "noxfile.py", "docs/conf.py"
 
 
-@nox_poetry.session(python=["3.10", "3.9"])
+@nox_poetry.session(python=["3.9", "3.10"])
 def tests(session: Session) -> None:
     """Run the test suite"""
     args = session.posargs or ["--cov", "-m", "not e2e"]
