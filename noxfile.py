@@ -1,4 +1,4 @@
-""" Nox sessions"""
+"""Nox sessions."""
 
 import nox
 from nox.sessions import Session
@@ -13,7 +13,7 @@ locations = "src", "tests", "noxfile.py", "docs/conf.py"
 
 @nox_poetry.session(python=["3.9", "3.10"])
 def tests(session: Session) -> None:
-    """Run the test suite"""
+    """Run the test suite."""
     args = session.posargs or ["--cov", "-m", "not e2e"]
     session.run("poetry", "install", "--no-dev", external=True)
     session.install("coverage[toml]", "pytest", "pytest-cov", "pytest-mock", ".")
@@ -22,7 +22,7 @@ def tests(session: Session) -> None:
 
 @nox_poetry.session(python=["3.10", "3.9"])
 def lint(session: Session) -> None:
-    """Lint using flake8"""
+    """Lint using flake8."""
     args = session.posargs or locations
     session.install(
         "flake8",
@@ -39,7 +39,7 @@ def lint(session: Session) -> None:
 
 @nox_poetry.session(python=["3.10"])
 def black(session: Session) -> None:
-    """Run Black code formatter"""
+    """Run Black code formatter."""
     args = session.posargs or locations
     session.install("black")
     session.run("black", *args)
@@ -47,7 +47,7 @@ def black(session: Session) -> None:
 
 @nox_poetry.session(python=["3.10"])
 def safety(session: Session) -> None:
-    """Scan dependencies for insecure packages"""
+    """Scan dependencies for insecure packages."""
     session.install("safety")
     session.run("safety", "check", "--full-report")
 

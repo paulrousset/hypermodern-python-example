@@ -1,13 +1,14 @@
 """Client for the Wikipedia REST API, version 1."""
+from dataclasses import dataclass
 
 import click
 import requests
-from dataclasses import dataclass
 
 
 @dataclass
 class Page:
     """Page resource.
+
     Attributes:
         title: The title of the Wikipedia page.
         extract: A plain text summary.
@@ -42,7 +43,6 @@ def random_page(language: str = "en") -> Page:
         >>> bool(page.title)
         True
     """
-
     url = API_URL.format(language=language)
     try:
         with requests.get(url) as response:

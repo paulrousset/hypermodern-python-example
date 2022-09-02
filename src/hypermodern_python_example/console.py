@@ -1,5 +1,4 @@
-"""Command-line interface"""
-
+"""Command-line interface."""
 import textwrap
 
 import click
@@ -17,7 +16,7 @@ from . import __version__, wikipedia
     show_default=True,
 )
 @click.version_option(version=__version__)
-def main(language):
+def main(language: str) -> None:
     """The hypermodern Python project."""
     data = wikipedia.random_page(language=language)
 

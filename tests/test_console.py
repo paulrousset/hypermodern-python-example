@@ -2,52 +2,51 @@
 from unittest.mock import Mock
 
 from click.testing import CliRunner
+from hypermodern_python_example import console
 import pytest
 from pytest_mock import MockFixture
 import requests
 
-from hypermodern_python_example import console
-
 
 @pytest.fixture
 def runner() -> CliRunner:
-    """Fixture for invoking commande-line interfaces"""
+    """Fixture for invoking commande-line interfaces."""
     return CliRunner()
 
 
 @pytest.fixture
 def mock_wikipedia_random_page(mocker: MockFixture) -> Mock:
-    """Fixture for mocking wikipedia.random_page"""
+    """Fixture for mocking wikipedia.random_page."""
     return mocker.patch("hypermodern_python_example.wikipedia.random_page")
 
 
 def test_main_succeeds(runner: CliRunner, mock_requests_get: Mock) -> None:
-    """It exits with a status code of zero"""
+    """It exits with a status code of zero."""
     result = runner.invoke(console.main)
     assert result.exit_code == 0
 
 
 @pytest.mark.e2e
 def test_main_succeeds_in_production_env(runner: CliRunner) -> None:
-    """It exists with a status code of zero (end-to-end)"""
+    """It exists with a status code of zero (end-to-end)."""
     result = runner.invoke(console.main)
     assert result.exit_code == 0
 
 
 def test_main_prints_title(runner: CliRunner, mock_requests_get: Mock) -> None:
-    """It prints the title of the Wikipedia page"""
+    """It prints the title of the Wikipedia page."""
     result = runner.invoke(console.main)
     assert "Lorem Ipsum" in result.output
 
 
 def test_main_invokes_requests_get(runner: CliRunner, mock_requests_get: Mock) -> None:
-    """It invokes requests.get"""
+    """It invokes requests.get."""
     runner.invoke(console.main)
     assert mock_requests_get.called
 
 
 def test_main_uses_en_wikipedia_org(runner: CliRunner, mock_requests_get: Mock) -> None:
-    """It uses the English Wikipedia by default"""
+    """It uses the English Wikipedia by default."""
     runner.invoke(console.main)
     args, _ = mock_requests_get.call_args
     assert "en.wikipedia.org" in args[0]
@@ -56,7 +55,7 @@ def test_main_uses_en_wikipedia_org(runner: CliRunner, mock_requests_get: Mock) 
 def test_main_fails_on_request_error(
     runner: CliRunner, mock_requests_get: Mock
 ) -> None:
-    """It exits with a non-zero status code if the request fails"""
+    """It exits with a non-zero status code if the request fails."""
     mock_requests_get.side_effect = Exception("Boom")
     result = runner.invoke(console.main)
     assert result.exit_code == 1
@@ -65,7 +64,7 @@ def test_main_fails_on_request_error(
 def test_main_prints_message_on_request_error(
     runner: CliRunner, mock_requests_get: Mock
 ) -> None:
-    """It prints an error message if the request fails"""
+    """It prints an error message if the request fails."""
     mock_requests_get.side_effect = requests.RequestException
     result = runner.invoke(console.main)
     assert "Error" in result.output
